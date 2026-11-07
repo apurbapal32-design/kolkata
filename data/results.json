@@ -1,4 +1,46 @@
 {
+  "stats": {
+    "totalPlayers": 142,
+    "pendingWalletRequests": 3,
+    "todayBidsCount": 58,
+    "todayVolume": 12850
+  },
+  "walletConfig": {
+    "upiId": "starline.pay@upi",
+    "accountHolder": "Starline Wallet Admin",
+    "minDeposit": 100,
+    "minWithdraw": 300,
+    "autoApprove": false,
+    "qrCodeUrl": ""
+  },
+  "players": [
+    { "id": "PL-101", "name": "Rahul Verma", "phone": "9876543210", "balance": 1450, "status": "active", "joinedAt": "2026-11-01" },
+    { "id": "PL-102", "name": "Amit Das", "phone": "9812345678", "balance": 820, "status": "active", "joinedAt": "2026-11-03" },
+    { "id": "PL-103", "name": "Bikash Roy", "phone": "9834567890", "balance": 0, "status": "blocked", "joinedAt": "2026-11-05" },
+    { "id": "PL-104", "name": "Subir Sen", "phone": "9898765432", "balance": 3200, "status": "active", "joinedAt": "2026-11-06" }
+  ],
+  "walletRequests": [
+    { "id": "WR-901", "playerId": "PL-101", "playerName": "Rahul Verma", "type": "deposit", "amount": 500, "utr": "432198765432", "status": "pending", "createdAt": "10:15 AM" },
+    { "id": "WR-902", "playerId": "PL-102", "playerName": "Amit Das", "type": "withdraw", "amount": 300, "utr": "-", "status": "pending", "createdAt": "11:20 AM" },
+    { "id": "WR-903", "playerId": "PL-104", "playerName": "Subir Sen", "type": "deposit", "amount": 1000, "utr": "543210987654", "status": "pending", "createdAt": "11:45 AM" }
+  ],
+  "bids": [
+    { "id": "BID-501", "playerName": "Rahul Verma", "game": "Kolkata FF - 1st Bazi", "type": "Patti (358)", "amount": 50, "potentialWin": 7000, "status": "pending", "time": "09:45 AM" },
+    { "id": "BID-502", "playerName": "Amit Das", "game": "Kolkata FF - 1st Bazi", "type": "Single (6)", "amount": 100, "potentialWin": 950, "status": "won", "time": "09:50 AM" },
+    { "id": "BID-503", "playerName": "Subir Sen", "game": "Starline - 12:00 PM", "type": "Single (4)", "amount": 200, "potentialWin": 1900, "status": "pending", "time": "11:10 AM" }
+  ],
+  "transactions": [
+    { "id": "TXN-801", "playerName": "Rahul Verma", "type": "Credit (Deposit)", "amount": 500, "status": "Completed", "timestamp": "2026-11-08 09:30 AM" },
+    { "id": "TXN-802", "playerName": "Amit Das", "type": "Debit (Withdraw)", "amount": 250, "status": "Completed", "timestamp": "2026-11-07 08:15 PM" },
+    { "id": "TXN-803", "playerName": "Subir Sen", "type": "Credit (Winning)", "amount": 950, "status": "Completed", "timestamp": "2026-11-07 06:40 PM" }
+  ],
+  "distribution": {
+    "apkName": "Starline-Live.apk",
+    "version": "v1.4.2",
+    "fileSize": "8.4 MB",
+    "updatedAt": "2026-11-08",
+    "downloadUrl": "/downloads/Starline-Live.apk"
+  },
   "timetable": [
     { "bazi": 1, "time": "10:03 AM", "label": "1st Bazi" },
     { "bazi": 2, "time": "11:33 AM", "label": "2nd Bazi" },
@@ -35,20 +77,7 @@
         { "bazi": 7, "patti": "350", "single": "8" },
         { "bazi": 8, "patti": "456", "single": "5" }
       ]
-    },
-    {
-      "date": "2026-11-06",
-      "rounds": [
-        { "bazi": 1, "patti": "236", "single": "1" },
-        { "bazi": 2, "patti": "349", "single": "6" },
-        { "bazi": 3, "patti": "158", "single": "4" },
-        { "bazi": 4, "patti": "278", "single": "7" },
-        { "bazi": 5, "patti": "389", "single": "0" },
-        { "bazi": 6, "patti": "145", "single": "0" },
-        { "bazi": 7, "patti": "569", "single": "0" },
-        { "bazi": 8, "patti": "237", "single": "2" }
-      ]
     }
   ],
-  "notice": "Welcome to Kolkata Fatafat Live Results Portal. Refresh frequently for instant updates."
+  "notice": "Welcome to Starline Live Results Portal. Refresh frequently for instant updates."
 }

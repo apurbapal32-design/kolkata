@@ -3,92 +3,440 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Admin Dashboard - Kolkata Fatafat</title>
+  <title>Starline - Control Menu Dashboard</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-      <div>
-        <h1 class="header-title" style="font-size: 1.4rem;">Admin <span>Control Hub</span></h1>
-        <p class="header-sub">Live Round Management & Result Publisher</p>
-      </div>
-      <div>
-        <a href="/" class="btn btn-outline" style="font-size: 0.8rem; padding: 6px 12px; margin-right: 8px;">View Live Site</a>
-        <button id="logoutBtn" class="btn btn-danger" style="font-size: 0.8rem; padding: 6px 12px; display: none;">Logout</button>
-      </div>
-    </div>
-  </header>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
 
-  <main class="container">
-    
-    <!-- Toast Notification -->
-    <div id="toast" class="toast"></div>
-
-    <!-- Login Section (Visible when not authenticated) -->
-    <div id="loginSection" class="login-card">
-      <h2 style="color: var(--accent-gold); margin-bottom: 8px;">🔐 Admin Access</h2>
-      <p style="color: var(--text-muted); font-size: 0.85rem;">Please enter your secret Access PIN to manage live rounds.</p>
+  <!-- PIN Login Overlay (Shown when not authenticated) -->
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-card">
+      <div style="font-size: 2.5rem; margin-bottom: 8px;">🌠</div>
+      <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 4px;">Starline Admin</h2>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Enter your Secret Access PIN to open control panel</p>
       
       <form id="loginForm">
         <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="8" autocomplete="off" autofocus required>
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">Authorize Access</button>
+        <button type="submit" class="btn btn-gold" style="width: 100%; padding: 12px; font-size: 0.95rem;">Enter Dashboard</button>
       </form>
       <p id="loginError" style="color: var(--accent-red); margin-top: 14px; font-size: 0.85rem; display: none;"></p>
     </div>
+  </div>
 
-    <!-- Dashboard Panel (Visible when authenticated) -->
-    <div id="dashboardSection" style="display: none;">
+  <!-- Main Dashboard Layout -->
+  <div class="admin-layout" id="mainLayout" style="display: none;">
+
+    <!-- Backdrop for Mobile Drawer -->
+    <div id="drawerBackdrop" class="drawer-backdrop"></div>
+
+    <!-- Side Drawer Navigation (Exact Starline match from screenshot) -->
+    <aside id="sideDrawer" class="side-drawer">
       
-      <!-- Top Action Bar -->
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
-        <div style="font-size: 1.1rem; font-weight: 700; color: var(--accent-gold);">
-          📅 Managing Date: <span id="adminDateBadge" style="color: #fff;">--/--/----</span>
+      <!-- Drawer Top Bar -->
+      <div class="drawer-top-nav">
+        <div>
+          <div class="nav-label">Navigation</div>
+          <div class="control-menu-label">Control menu</div>
         </div>
-        <div style="display: flex; gap: 8px;">
-          <button id="resetTodayBtn" class="btn btn-danger" style="font-size: 0.85rem; padding: 8px 14px;">Reset Today's Board</button>
-          <button id="changePinToggleBtn" class="btn btn-outline" style="font-size: 0.85rem; padding: 8px 14px;">Change PIN</button>
-        </div>
+        <button id="closeDrawerBtn" class="close-drawer-btn">Close</button>
       </div>
 
-      <!-- Change PIN Box (Collapsible) -->
-      <div id="changePinBox" class="card-box" style="display: none; border-color: var(--accent-gold);">
-        <h3 style="color: var(--accent-gold); font-size: 1rem; margin-bottom: 12px;">🔑 Change Admin Access PIN</h3>
-        <div style="display: flex; gap: 10px; align-items: flex-end; max-width: 400px;">
-          <div style="flex: 1;">
-            <label style="font-size: 0.8rem; color: var(--text-muted);">New PIN (at least 4 digits)</label>
-            <input type="password" id="newPinInput" class="admin-input" placeholder="Enter new PIN">
+      <!-- Brand Header -->
+      <div class="drawer-brand">
+        <div class="brand-icon-box">
+          🌠
+        </div>
+        <div class="brand-name">Starline</div>
+      </div>
+
+      <!-- Menu Items -->
+      <nav>
+        <!-- CORE Section -->
+        <div class="nav-group">
+          <div class="nav-group-title">Core</div>
+          <button class="nav-item" data-view="dashboard">
+            <span>📊</span> Dashboard
+          </button>
+          <button class="nav-item" data-view="players">
+            <span>👥</span> Players
+          </button>
+          <button class="nav-item active" data-view="wallet-requests">
+            <span>💳</span> Wallet Requests
+            <span id="pendingRequestsBadge" class="badge-count" style="display: none;">0</span>
+          </button>
+          <button class="nav-item" data-view="staff-access">
+            <span>🔑</span> Staff Access
+          </button>
+          <button class="nav-item" data-view="wallet-config">
+            <span>⚙️</span> Wallet Config
+          </button>
+        </div>
+
+        <!-- GAMES Section -->
+        <div class="nav-group">
+          <div class="nav-group-title">Games</div>
+          <button class="nav-item" data-view="categories">
+            <span>🏷️</span> Categories
+          </button>
+          <button class="nav-item" data-view="games">
+            <span>🎲</span> Games
+          </button>
+          <button class="nav-item" data-view="bids">
+            <span>🎯</span> Bids
+          </button>
+          <button class="nav-item" data-view="publish-result">
+            <span>⚡</span> Publish Result
+          </button>
+        </div>
+
+        <!-- FINANCE Section -->
+        <div class="nav-group">
+          <div class="nav-group-title">Finance</div>
+          <button class="nav-item" data-view="transactions">
+            <span>📜</span> Transactions
+          </button>
+        </div>
+
+        <!-- DISTRIBUTION Section -->
+        <div class="nav-group">
+          <div class="nav-group-title">Distribution</div>
+          <button class="nav-item" data-view="download-apk">
+            <span>📱</span> Download APK
+          </button>
+        </div>
+      </nav>
+
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      
+      <!-- Topbar Header -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button id="openDrawerBtn" class="hamburger-btn" title="Open Navigation Menu">☰ Menu</button>
+          <h2 id="currentPageTitle" class="page-title">Wallet Requests</h2>
+        </div>
+        <div class="topbar-right">
+          <a href="/" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 6px 12px;">🌐 Live View</a>
+          <button id="logoutBtn" class="btn btn-danger" style="font-size: 0.8rem; padding: 6px 12px;">Logout</button>
+        </div>
+      </header>
+
+      <!-- Dynamic Views Container -->
+      <div class="admin-content-body">
+
+        <!-- 1. VIEW: DASHBOARD -->
+        <div id="view-dashboard" class="view-panel" style="display: none;">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">Total Registrations</div>
+              <div class="kpi-value" id="kpiTotalPlayers">0</div>
+              <div class="kpi-sub">Total verified players</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Pending Amount</div>
+              <div class="kpi-value" style="color: #fbbf24;" id="kpiPendingAmount">Rs. 0</div>
+              <div class="kpi-sub">Awaiting wallet approval</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Today's Bids</div>
+              <div class="kpi-value" id="kpiTodayBids">0</div>
+              <div class="kpi-sub">Total round bids placed</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Today's Volume</div>
+              <div class="kpi-value" style="color: #34d399;" id="kpiTodayVolume">Rs. 0</div>
+              <div class="kpi-sub">Total turnover today</div>
+            </div>
           </div>
-          <button id="savePinBtn" class="btn btn-primary" style="padding: 10px 16px;">Save PIN</button>
+
+          <div class="content-box">
+            <div class="box-header">
+              <h3 class="box-title">⚡ Quick Result Overview (Today's 8 Bazis)</h3>
+              <button class="btn btn-primary" onclick="switchView('publish-result')">Go to Publish Results</button>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Bazi</th>
+                    <th>Draw Time</th>
+                    <th>Result (Patti - Single)</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="dashRoundsTable">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Notice Ticker Editor -->
-      <div class="card-box">
-        <h3 style="color: var(--accent-gold); font-size: 1rem; margin-bottom: 8px;">📢 Live Ticker Announcement</h3>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <input type="text" id="adminNoticeInput" class="admin-input" placeholder="Type notice to display across top of public site...">
-          <button id="saveNoticeBtn" class="btn btn-primary" style="white-space: nowrap; padding: 10px 18px;">Update Notice</button>
+        <!-- 2. VIEW: WALLET REQUESTS (Default Active) -->
+        <div id="view-wallet-requests" class="view-panel">
+          
+          <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 18px;">
+            <div class="kpi-card" style="padding: 14px 18px;">
+              <div class="kpi-label">Total Requests</div>
+              <div class="kpi-value" style="font-size: 1.6rem;" id="wrTotalCount">0</div>
+            </div>
+            <div class="kpi-card" style="padding: 14px 18px;">
+              <div class="kpi-label">Pending Amount</div>
+              <div class="kpi-value" style="font-size: 1.6rem; color: #fbbf24;" id="wrPendingAmount">Rs. 0</div>
+            </div>
+          </div>
+
+          <div class="content-box">
+            <div class="box-header">
+              <div style="display: flex; gap: 8px;">
+                <button id="btnFilterAll" class="btn btn-primary" onclick="filterWalletRequests('all')">All Requests</button>
+                <button id="btnFilterPending" class="btn btn-outline" onclick="filterWalletRequests('pending')">Pending Only</button>
+              </div>
+              <button class="btn btn-outline" onclick="loadWalletRequests()">🔄 Refresh</button>
+            </div>
+
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Request ID</th>
+                    <th>Player</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>UTR / Ref Number</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="walletRequestsTable">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
+
+        <!-- 3. VIEW: PLAYERS -->
+        <div id="view-players" class="view-panel" style="display: none;">
+          <div class="content-box">
+            <div class="box-header">
+              <h3 class="box-title">👥 Registered Players</h3>
+              <input type="text" id="playerSearchInput" class="admin-input" placeholder="Search by name or phone..." style="max-width: 250px;">
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Player ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="playersTableBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. VIEW: PUBLISH RESULT -->
+        <div id="view-publish-result" class="view-panel" style="display: none;">
+          <div class="content-box">
+            <div class="box-header">
+              <h3 class="box-title">⚡ Publish Winning Numbers (8 Bazis & Starline)</h3>
+              <button class="btn btn-danger" id="adminResetTodayBtn">Reset Today's Board</button>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+              Enter 3-digit Patti. The Single digit will calculate automatically, or you can adjust it manually.
+            </p>
+
+            <div class="rounds-grid" id="publishRoundsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. VIEW: WALLET CONFIG -->
+        <div id="view-wallet-config" class="view-panel" style="display: none;">
+          <div class="content-box" style="max-width: 600px;">
+            <h3 class="box-title" style="margin-bottom: 16px;">⚙️ Payment & Wallet Settings</h3>
+            <form id="walletConfigForm">
+              <div style="margin-bottom: 14px;">
+                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">UPI ID for Deposits</label>
+                <input type="text" id="cfgUpiId" class="admin-input" placeholder="e.g. starline@upi" required>
+              </div>
+              <div style="margin-bottom: 14px;">
+                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Account / Receiver Name</label>
+                <input type="text" id="cfgAccountHolder" class="admin-input" placeholder="Starline Live Official">
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div>
+                  <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Minimum Deposit (Rs.)</label>
+                  <input type="number" id="cfgMinDeposit" class="admin-input" value="100">
+                </div>
+                <div>
+                  <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Minimum Withdrawal (Rs.)</label>
+                  <input type="number" id="cfgMinWithdraw" class="admin-input" value="300">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">Save Configuration</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- 6. VIEW: BIDS -->
+        <div id="view-bids" class="view-panel" style="display: none;">
+          <div class="content-box">
+            <h3 class="box-title" style="margin-bottom: 16px;">🎯 Live Player Bids Monitor</h3>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Bid ID</th>
+                    <th>Player</th>
+                    <th>Game / Bazi</th>
+                    <th>Bid Detail</th>
+                    <th>Points</th>
+                    <th>Potential Win</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="bidsTableBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. VIEW: CATEGORIES & GAMES -->
+        <div id="view-categories" class="view-panel" style="display: none;">
+          <div class="content-box">
+            <h3 class="box-title" style="margin-bottom: 16px;">🏷️ Game Categories</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+              <div class="kpi-card">
+                <h4 style="color: var(--accent-gold);">Kolkata Fatafat</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">8 Rounds Daily Draw (10:03 AM - 08:33 PM)</p>
+                <span class="badge badge-approved" style="margin-top: 8px;">Active Market</span>
+              </div>
+              <div class="kpi-card">
+                <h4 style="color: #38bdf8;">Starline Special</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Hourly Results (10:00 AM to 09:00 PM)</p>
+                <span class="badge badge-approved" style="margin-top: 8px;">Active Market</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="view-games" class="view-panel" style="display: none;">
+          <div class="content-box">
+            <h3 class="box-title" style="margin-bottom: 16px;">🎲 Active Games & Timetable</h3>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Round / Game</th>
+                    <th>Scheduled Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="gamesScheduleTable">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. VIEW: STAFF ACCESS -->
+        <div id="view-staff-access" class="view-panel" style="display: none;">
+          <div class="content-box" style="max-width: 500px;">
+            <h3 class="box-title" style="margin-bottom: 14px;">🔑 Change Master Access PIN</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+              Updating this PIN will require everyone to use the new PIN for logging into this dashboard.
+            </p>
+            <div style="margin-bottom: 14px;">
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">New Secret PIN (4-8 digits)</label>
+              <input type="password" id="staffNewPin" class="admin-input" placeholder="Enter new secret PIN">
+            </div>
+            <button id="saveStaffPinBtn" class="btn btn-gold" style="padding: 10px 18px;">Update Master PIN</button>
+          </div>
+        </div>
+
+        <!-- 9. VIEW: TRANSACTIONS -->
+        <div id="view-transactions" class="view-panel" style="display: none;">
+          <div class="content-box">
+            <h3 class="box-title" style="margin-bottom: 16px;">📜 Financial Ledger & Logs</h3>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Txn ID</th>
+                    <th>Player</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Timestamp</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="txnsTableBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. VIEW: DISTRIBUTION (DOWNLOAD APK) -->
+        <div id="view-download-apk" class="view-panel" style="display: none;">
+          <div class="content-box" style="max-width: 600px;">
+            <h3 class="box-title" style="margin-bottom: 14px;">📱 APK Release & Distribution</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+              Configure the standalone Android APK download for your players.
+            </p>
+            <div style="background: #172032; padding: 16px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #283754;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <h4 style="color: #fff;" id="distApkName">Starline-Live.apk</h4>
+                  <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+                    Version: <span id="distVersion">v1.4.2</span> • Size: <span id="distSize">8.4 MB</span>
+                  </p>
+                </div>
+                <a id="distDownloadLink" href="#" class="btn btn-gold" style="text-decoration: none;">Download APK</a>
+              </div>
+            </div>
+
+            <form id="distributionForm">
+              <div style="margin-bottom: 12px;">
+                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">App Version</label>
+                <input type="text" id="apkVersionInput" class="admin-input" placeholder="v1.4.2">
+              </div>
+              <div style="margin-bottom: 14px;">
+                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">APK Download Direct URL</label>
+                <input type="text" id="apkUrlInput" class="admin-input" placeholder="https://yourdomain.com/downloads/Starline-Live.apk">
+              </div>
+              <button type="submit" class="btn btn-primary">Update Distribution Link</button>
+            </form>
+          </div>
+        </div>
+
       </div>
 
-      <!-- 8 Bazi Round Controls -->
-      <h3 class="section-title" style="margin-top: 24px;">⚡ Live Rounds (1st to 8th Bazi)</h3>
-      <div class="rounds-grid" id="adminRoundsGrid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
-        <!-- Rendered dynamically -->
-      </div>
+    </main>
 
-    </div>
-
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>Kolkata Fatafat Admin Console • Authorized Personnel Only</p>
-    </div>
-  </footer>
+  </div>
 
   <script src="admin.js"></script>
 </body>
