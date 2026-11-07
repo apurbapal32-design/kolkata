@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kolkata Fatafat Live Results - Today Result Chart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1 class="header-title">Kolkata <span>Fatafat</span> Live</h1>
+      <p class="header-sub">Super Fast Official Results & Patti Single Charts</p>
+      <div class="live-badge">
+        <span class="pulse-dot"></span>
+        <span id="liveClock">LIVE UPDATES</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- News Ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker-text" id="tickerNotice">
+      Loading latest announcement and live updates...
+    </div>
+  </div>
+
+  <main class="container">
+    
+    <!-- Install PWA Banner -->
+    <div id="pwaBanner" class="pwa-banner" style="display: none;">
+      <div>
+        <strong>📱 Install Mobile App</strong>
+        <p style="font-size: 0.8rem; margin: 0; opacity: 0.9;">Add to home screen for instant round notifications</p>
+      </div>
+      <button id="installBtn" class="btn-install">Install App</button>
+    </div>
+
+    <!-- Today's Results Section -->
+    <section>
+      <div class="section-title">
+        <span>⚡ Today's Live Results</span>
+        <span class="date-badge" id="todayDateBadge">--/--/----</span>
+      </div>
+
+      <div class="rounds-grid" id="roundsGrid">
+        <!-- Filled dynamically by JavaScript -->
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted);">
+          Loading live round results...
+        </div>
+      </div>
+    </section>
+
+    <!-- Timetable Section -->
+    <section class="card-box">
+      <div class="section-title" style="margin-bottom: 8px;">
+        <span>🕒 Today's Draw Schedule</span>
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Bazi</th>
+              <th>Draw Time</th>
+              <th>Result Status</th>
+            </tr>
+          </thead>
+          <tbody id="timetableBody">
+            <!-- Filled dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- History Chart Section -->
+    <section class="card-box">
+      <div class="section-title" style="margin-bottom: 12px;">
+        <span>📊 Past Results & Chart</span>
+        <div>
+          <input type="date" id="historyDateInput" class="admin-input" style="width: auto; padding: 6px 10px; font-size: 0.85rem;">
+          <button id="searchHistoryBtn" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.85rem;">Search</button>
+        </div>
+      </div>
+      
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>1st</th>
+              <th>2nd</th>
+              <th>3rd</th>
+              <th>4th</th>
+              <th>5th</th>
+              <th>6th</th>
+              <th>7th</th>
+              <th>8th</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Kolkata Fatafat Live Portal. All Rights Reserved.</p>
+      <p style="margin-top: 6px;">
+        <a href="/admin" style="color: var(--accent-gold); text-decoration: none; font-weight: 600;">🔒 Admin Dashboard</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Admin Dashboard - Kolkata Fatafat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h1 class="header-title" style="font-size: 1.4rem;">Admin <span>Control Hub</span></h1>
+        <p class="header-sub">Live Round Management & Result Publisher</p>
+      </div>
+      <div>
+        <a href="/" class="btn btn-outline" style="font-size: 0.8rem; padding: 6px 12px; margin-right: 8px;">View Live Site</a>
+        <button id="logoutBtn" class="btn btn-danger" style="font-size: 0.8rem; padding: 6px 12px; display: none;">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Login Section (Visible when not authenticated) -->
+    <div id="loginSection" class="login-card">
+      <h2 style="color: var(--accent-gold); margin-bottom: 8px;">🔐 Admin Access</h2>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Please enter your secret Access PIN to manage live rounds.</p>
+      
+      <form id="loginForm">
+        <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="8" autocomplete="off" autofocus required>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">Authorize Access</button>
+      </form>
+      <p id="loginError" style="color: var(--accent-red); margin-top: 14px; font-size: 0.85rem; display: none;"></p>
+    </div>
+
+    <!-- Dashboard Panel (Visible when authenticated) -->
+    <div id="dashboardSection" style="display: none;">
+      
+      <!-- Top Action Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+        <div style="font-size: 1.1rem; font-weight: 700; color: var(--accent-gold);">
+          📅 Managing Date: <span id="adminDateBadge" style="color: #fff;">--/--/----</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button id="resetTodayBtn" class="btn btn-danger" style="font-size: 0.85rem; padding: 8px 14px;">Reset Today's Board</button>
+          <button id="changePinToggleBtn" class="btn btn-outline" style="font-size: 0.85rem; padding: 8px 14px;">Change PIN</button>
+        </div>
+      </div>
+
+      <!-- Change PIN Box (Collapsible) -->
+      <div id="changePinBox" class="card-box" style="display: none; border-color: var(--accent-gold);">
+        <h3 style="color: var(--accent-gold); font-size: 1rem; margin-bottom: 12px;">🔑 Change Admin Access PIN</h3>
+        <div style="display: flex; gap: 10px; align-items: flex-end; max-width: 400px;">
+          <div style="flex: 1;">
+            <label style="font-size: 0.8rem; color: var(--text-muted);">New PIN (at least 4 digits)</label>
+            <input type="password" id="newPinInput" class="admin-input" placeholder="Enter new PIN">
+          </div>
+          <button id="savePinBtn" class="btn btn-primary" style="padding: 10px 16px;">Save PIN</button>
+        </div>
+      </div>
+
+      <!-- Notice Ticker Editor -->
+      <div class="card-box">
+        <h3 style="color: var(--accent-gold); font-size: 1rem; margin-bottom: 8px;">📢 Live Ticker Announcement</h3>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <input type="text" id="adminNoticeInput" class="admin-input" placeholder="Type notice to display across top of public site...">
+          <button id="saveNoticeBtn" class="btn btn-primary" style="white-space: nowrap; padding: 10px 18px;">Update Notice</button>
+        </div>
+      </div>
+
+      <!-- 8 Bazi Round Controls -->
+      <h3 class="section-title" style="margin-top: 24px;">⚡ Live Rounds (1st to 8th Bazi)</h3>
+      <div class="rounds-grid" id="adminRoundsGrid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Kolkata Fatafat Admin Console • Authorized Personnel Only</p>
+    </div>
+  </footer>
+
+  <script src="admin.js"></script>
+</body>
+</html>

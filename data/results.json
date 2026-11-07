@@ -1,0 +1,54 @@
+{
+  "timetable": [
+    { "bazi": 1, "time": "10:03 AM", "label": "1st Bazi" },
+    { "bazi": 2, "time": "11:33 AM", "label": "2nd Bazi" },
+    { "bazi": 3, "time": "01:03 PM", "label": "3rd Bazi" },
+    { "bazi": 4, "time": "02:33 PM", "label": "4th Bazi" },
+    { "bazi": 5, "time": "04:03 PM", "label": "5th Bazi" },
+    { "bazi": 6, "time": "05:33 PM", "label": "6th Bazi" },
+    { "bazi": 7, "time": "07:03 PM", "label": "7th Bazi" },
+    { "bazi": 8, "time": "08:33 PM", "label": "8th Bazi" }
+  ],
+  "today": {
+    "date": "2026-11-08",
+    "rounds": [
+      { "bazi": 1, "patti": "358", "single": "6", "status": "declared", "updatedAt": "10:03 AM" },
+      { "bazi": 2, "patti": "129", "single": "2", "status": "declared", "updatedAt": "11:33 AM" },
+      { "bazi": 3, "patti": "478", "single": "9", "status": "declared", "updatedAt": "01:03 PM" },
+      { "bazi": 4, "patti": "260", "single": "8", "status": "declared", "updatedAt": "02:33 PM" },
+      { "bazi": 5, "patti": "***", "single": "*", "status": "waiting", "updatedAt": "-" },
+      { "bazi": 6, "patti": "***", "single": "*", "status": "waiting", "updatedAt": "-" },
+      { "bazi": 7, "patti": "***", "single": "*", "status": "waiting", "updatedAt": "-" },
+      { "bazi": 8, "patti": "***", "single": "*", "status": "waiting", "updatedAt": "-" }
+    ]
+  },
+  "history": [
+    {
+      "date": "2026-11-07",
+      "rounds": [
+        { "bazi": 1, "patti": "147", "single": "2" },
+        { "bazi": 2, "patti": "258", "single": "5" },
+        { "bazi": 3, "patti": "369", "single": "8" },
+        { "bazi": 4, "patti": "470", "single": "1" },
+        { "bazi": 5, "patti": "123", "single": "6" },
+        { "bazi": 6, "patti": "679", "single": "2" },
+        { "bazi": 7, "patti": "350", "single": "8" },
+        { "bazi": 8, "patti": "456", "single": "5" }
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "rounds": [
+        { "bazi": 1, "patti": "236", "single": "1" },
+        { "bazi": 2, "patti": "349", "single": "6" },
+        { "bazi": 3, "patti": "158", "single": "4" },
+        { "bazi": 4, "patti": "278", "single": "7" },
+        { "bazi": 5, "patti": "389", "single": "0" },
+        { "bazi": 6, "patti": "145", "single": "0" },
+        { "bazi": 7, "patti": "569", "single": "0" },
+        { "bazi": 8, "patti": "237", "single": "2" }
+      ]
+    }
+  ],
+  "notice": "Welcome to Kolkata Fatafat Live Results Portal. Refresh frequently for instant updates."
+}

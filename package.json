@@ -1,0 +1,26 @@
+{
+  "name": "kolkata-fatafat-portal",
+  "version": "1.0.0",
+  "description": "Full-Stack Live Results Portal and PIN-Protected Admin Dashboard with PWA and Android APK support",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "results-portal",
+    "admin-dashboard",
+    "kolkata-fatafat",
+    "pwa",
+    "android-apk"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
