@@ -1,4 +1,5 @@
 {
+  "adminPinOverride": "2468",
   "stats": {
     "totalPlayers": 142,
     "pendingWalletRequests": 3,
